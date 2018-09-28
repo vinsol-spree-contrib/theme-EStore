@@ -6,13 +6,13 @@
       <%= form.label :firstname, class: 'form-label' do %>
         <%= Spree.t(:first_name) %><span class="required" title="required">*</span>
       <% end %>
-      <%= form.text_field :firstname, class: 'global-input required' %>
+      <%= form.text_field :firstname, class: 'global-input', required: true %>
     </div>
     <div class="col-sm-6 checkout-address-form-block" id=<%="#{address_id}lastname" %>>
       <%= form.label :lastname, class: 'form-label' do %>
         <%= Spree.t(:last_name) %><span class="required" title="required">*</span>
       <% end %>
-      <%= form.text_field :lastname, class: 'global-input required' %>
+      <%= form.text_field :lastname, class: 'global-input', required: true %>
     </div>
   </div>
 
@@ -30,7 +30,7 @@
       <%= form.label :address1, class: 'form-label' do %>
         <%= Spree.t(:street_address) %><span class="required" title="required">*</span>
       <% end %>
-      <%= form.text_field :address1, class: 'global-input  required' %>
+      <%= form.text_field :address1, class: 'global-input', required: true %>
     </div>
     <div class="col-sm-6 checkout-address-form-block" id=<%="#{address_id}address2" %>>
       <%= form.label :address2, Spree.t(:street_address_2), class: 'form-label' %>
@@ -43,7 +43,7 @@
       <%= form.label :city, class: 'form-label' do %>
         <%= Spree.t(:city) %><span class="required" title="required">*</span>
       <% end %>
-      <%= form.text_field :city, class: 'global-input required' %>
+      <%= form.text_field :city, class: 'global-input', required: true %>
     </div>
     <div class="col-sm-6 checkout-address-form-block" id=<%="#{address_id}country" %>>
       <%= form.label :country_id, class: 'form-label' do %>
@@ -51,7 +51,7 @@
       <% end %>
       <span id=<%="#{address_id}country-selection" %> class="custom-select-holder select-white">
         <span class="custom-select-arrow"></span>
-        <%= form.collection_select :country_id, available_countries, :id, :name, {}, {class: 'custom-select'} %>
+        <%= form.collection_select :country_id, available_countries, :id, :name, {}, { class: 'custom-select', required: true } %>
       </span>
     </div>
   </div>
@@ -70,17 +70,19 @@
                form.collection_select(:state_id, address.country.states,
                                   :id, :name,
                                   {include_blank: true},
-                                  {class: have_states ? 'custom-select required' : 'custom-select hidden',
+                                  {class: have_states ? 'custom-select' : 'custom-select hidden',
+                                  required: have_states,
                                   disabled: !have_states}) +
                form.text_field(:state_name,
-                                  class: !have_states ? 'custom-select required' : 'custom-select hidden',
+                                  class: !have_states ? 'custom-select' : 'custom-select hidden',
+                                  required: !have_states,
                                   disabled: have_states)
                ].join.gsub('"', "'").gsub("\n", "")
             %>
           </span>
       </div>
         <noscript>
-          <%= form.text_field :state_name, class: 'global-input required' %>
+          <%= form.text_field :state_name, class: 'global-input', required: true %>
         </noscript>
     <% end %>
 
@@ -88,7 +90,7 @@
       <%= form.label :zipcode, class: 'form-label' do %>
         <%= Spree.t(:zip) %><% if address.require_zipcode? %><span class="required" title="required">*</span><% end %>
       <% end %>
-      <%= form.text_field :zipcode, class: "global-input #{'required' if address.require_zipcode?}" %>
+      <%= form.text_field :zipcode, class: 'global-input', required: address.require_zipcode? %>
     </div>
   </div>
 
@@ -97,7 +99,7 @@
       <%= form.label :phone, class: 'form-label' do %>
         <%= Spree.t(:phone) %><% if address.require_phone? %><span class="required" title="required">*</span><% end %>
       <% end %>
-      <%= form.phone_field :phone, class: "global-input #{'required' if address.require_phone?}" %>
+      <%= form.phone_field :phone, class: 'global-input', required: address.require_phone? %>
     </div>
     <% if Spree::Config[:alternative_shipping_phone] %>
       <div class="col-sm-6 checkout-address-form-block" id=<%="#{address_id}altphone" %>>
