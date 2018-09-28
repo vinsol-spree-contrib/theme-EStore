@@ -33,7 +33,7 @@
     <div class="col-md-4 field" data-hook="card_code">
       <%= label_tag "card_code", class: 'form-label' do %>
         <%= Spree.t(:card_code) %><span class="required" title="required">*</span>
-        <%= link_to "(#{Spree.t(:what_is_this)})", spree.content_path('cvv'), target: '_blank', "data-hook" => "cvv_link", id: "cvv_link", class: 'pull-right checkout-form-hint-link' %>
+        <%= link_to "(#{Spree.t(:what_is_this)})", spree.cvv_path, target: '_blank', "data-hook" => "cvv_link", id: "cvv_link", class: 'pull-right checkout-form-hint-link' %>
       <% end %>
       <%= text_field_tag "#{param_prefix}[verification_value]", '', options_hash.merge(id: 'card_code', class: 'global-input required cardCode', size: 5) %>
     </div>

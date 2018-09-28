@@ -9,7 +9,7 @@
         </span>
       <% else %>
         <span class="cart-image-holder">
-          <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product, class: 'cart-image-link' %>
+          <%= link_to image_tag(main_app.url_for(variant.images.first.url(:small))), variant.product, class: 'cart-image-link' %>
         </span>
       <% end %>
     </td>
